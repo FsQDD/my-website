@@ -3,42 +3,667 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello sty</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <title>sty — 首页</title>
   <style>
+    :root {
+      --bg-dark: #000;
+      --bg-light: #f5f5f7;
+      --text-dark: #1d1d1f;
+      --text-light: #f5f5f7;
+      --text-muted: #86868b;
+      --link: #2997ff;
+      --nav-h: 44px;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background-color: #000;
-      color: #f5f5f5;
-      font-family: "Cormorant Garamond", "Times New Roman", serif;
-      font-weight: 300;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      letter-spacing: 0.12em;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-h);
       display: flex;
       align-items: center;
       justify-content: center;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      background: rgba(22, 22, 23, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    h1 {
+    .nav-inner {
+      width: 100%;
+      max-width: 1024px;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-icons svg {
+      width: 15px;
+      height: 15px;
+      fill: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      transition: fill 0.2s;
+    }
+
+    .nav-icons svg:hover {
+      fill: #fff;
+    }
+
+    /* ── Hero sections ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 48px) 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero--dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .hero--light {
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .hero-eyebrow {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(21px, 3vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .hero--dark .hero-subtitle {
+      color: #a1a1a6;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      font-size: 17px;
+      margin-bottom: 48px;
+    }
+
+    .hero-cta a {
+      color: var(--link);
+    }
+
+    .hero-cta a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Product visuals ── */
+    .hero-visual {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 12px;
+    }
+
+    .device {
+      position: relative;
+      border-radius: 40px;
+      background: linear-gradient(145deg, #2a2a2e 0%, #1a1a1c 50%, #0d0d0f 100%);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        0 0 120px rgba(80, 120, 255, 0.15);
+    }
+
+    .device--phone {
+      width: min(260px, 55vw);
+      aspect-ratio: 9 / 19.5;
+      border-radius: 48px;
+    }
+
+    .device--phone::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+    }
+
+    .device--phone .screen {
+      position: absolute;
+      inset: 8px;
+      border-radius: 42px;
+      background: linear-gradient(160deg, #1a0533 0%, #0a1628 40%, #001a33 100%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .device--phone .screen-glow {
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(ellipse at 50% 30%, rgba(120, 80, 255, 0.5) 0%, transparent 60%);
+    }
+
+    .device--phone .screen-text {
+      position: absolute;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(150, 100, 255, 0.6);
+    }
+
+    .device--laptop {
+      width: min(680px, 90vw);
+      aspect-ratio: 16 / 10;
+      border-radius: 16px 16px 4px 4px;
+      background: linear-gradient(180deg, #3a3a3c 0%, #1d1d1f 100%);
+    }
+
+    .device--laptop .screen {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #2d1b4e 100%);
+      overflow: hidden;
+    }
+
+    .device--laptop .screen-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(0, 180, 255, 0.25) 0%, transparent 55%);
+    }
+
+    .device--laptop .base {
+      position: absolute;
+      bottom: -14px;
+      left: -4%;
+      right: -4%;
+      height: 14px;
+      background: linear-gradient(180deg, #4a4a4c, #2c2c2e);
+      border-radius: 0 0 12px 12px;
+    }
+
+    .device--watch {
+      width: min(200px, 40vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #3a3a3c, #1d1d1f);
+      box-shadow:
+        0 0 0 8px #2c2c2e,
+        0 0 0 10px rgba(255, 255, 255, 0.06),
+        0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .device--watch .face {
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .device--watch .face-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #ff375f, #ff9f0a, #30d158, #0a84ff, #bf5af2, #ff375f);
+      opacity: 0.7;
+      mask: radial-gradient(circle, transparent 55%, black 56%);
+      -webkit-mask: radial-gradient(circle, transparent 55%, black 56%);
+    }
+
+    .device--watch .face-time {
+      position: relative;
+      z-index: 1;
+      font-size: 32px;
       font-weight: 300;
-      font-style: italic;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    /* ── Promo strip ── */
+    .promo {
+      background: #fff;
+      text-align: center;
+      padding: 14px 24px;
+      font-size: 14px;
+      color: var(--text-dark);
+      border-top: 1px solid #d2d2d7;
+      border-bottom: 1px solid #d2d2d7;
+    }
+
+    .promo a {
+      color: var(--link);
+    }
+
+    /* ── Grid cards ── */
+    .grid-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 12px;
+      background: var(--bg-light);
+    }
+
+    .card {
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 52px 32px 0;
+      position: relative;
+    }
+
+    .card--dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .card--light {
+      background: #fff;
+      color: var(--text-dark);
+    }
+
+    .card-logo {
+      font-size: 40px;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 6px;
+    }
+
+    .card-sub {
+      font-size: 19px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .card--dark .card-sub {
+      color: #a1a1a6;
+    }
+
+    .card-cta {
+      display: flex;
+      gap: 24px;
+      font-size: 17px;
+      margin-bottom: 32px;
+    }
+
+    .card-cta a {
+      color: var(--link);
+    }
+
+    .card-visual {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 0;
+    }
+
+    .card-blob {
+      width: 70%;
+      height: 280px;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(180deg, rgba(80, 120, 255, 0.3) 0%, transparent 100%);
+    }
+
+    .card-blob--green {
+      background: linear-gradient(180deg, rgba(48, 209, 88, 0.35) 0%, transparent 100%);
+    }
+
+    .card-blob--orange {
+      background: linear-gradient(180deg, rgba(255, 159, 10, 0.35) 0%, transparent 100%);
+    }
+
+    .card-blob--purple {
+      background: linear-gradient(180deg, rgba(191, 90, 242, 0.35) 0%, transparent 100%);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg-light);
+      padding: 20px 24px 40px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid #d2d2d7;
+    }
+
+    .footer-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+
+    .footer-note {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #d2d2d7;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-copy {
+      margin-top: 8px;
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .grid-section {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: 480px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        gap: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Hello sty</h1>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">sty</a>
+      <ul class="nav-links">
+        <li><a href="#phone">Phone</a></li>
+        <li><a href="#laptop">Laptop</a></li>
+        <li><a href="#watch">Watch</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#">支持</a></li>
+      </ul>
+      <div class="nav-icons">
+        <svg viewBox="0 0 15 15"><path d="M11.5 10.5c-.8 0-1.5.3-2.1.8l-3.1-3.1c.5-.6.8-1.3.8-2.1 0-1.9-1.6-3.5-3.5-3.5S0 4.1 0 6s1.6 3.5 3.5 3.5c.8 0 1.5-.3 2.1-.8l3.1 3.1c-.5.6-.8 1.3-.8 2.1 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5-1.6-3.5-3.5-3.5z"/></svg>
+        <svg viewBox="0 0 15 15"><path d="M11.8 11.2c-.5.4-1.2.7-1.9.7-1.5 0-2.8-1.2-2.8-2.8 0-1.5 1.2-2.8 2.8-2.8.7 0 1.3.3 1.9.7l1.5-1.5c-.9-.8-2-1.3-3.3-1.3-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5c1.3 0 2.4-.5 3.3-1.3l-1.5-1.5zM3.2 3.8c-.5.4-1.2.7-1.9.7C0 4.5 0 3.3 0 1.7S1.2 0 2.8 0c.7 0 1.3.3 1.9.7L6.2 0C5.3.8 4.2 1.3 2.9 1.3.4 1.3-.6 3.3-.6 5.8s2 4.5 4.5 4.5c1.3 0 2.4-.5 3.3-1.3L6.7 7.5c-.5.4-1.2.7-1.9.7-1.5 0-2.8-1.2-2.8-2.8 0-1.5 1.2-2.8 2.8-2.8.7 0 1.3.3 1.9.7l1.5-1.5z"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero hero--dark reveal" id="top">
+    <p class="hero-eyebrow">全新登场</p>
+    <h1 class="hero-title">Hello sty.</h1>
+    <p class="hero-subtitle">至简，而至美。</p>
+    <div class="hero-cta">
+      <a href="#">进一步了解</a>
+      <a href="#">购买</a>
+    </div>
+    <div class="hero-visual">
+      <div class="device device--phone">
+        <div class="screen">
+          <div class="screen-glow"></div>
+          <span class="screen-text">sty</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promo -->
+  <div class="promo">
+    以旧换新，最高可享 RMB 500 补贴。
+    <a href="#">选购 ›</a>
+  </div>
+
+  <!-- Laptop hero -->
+  <section class="hero hero--light reveal" id="laptop" style="min-height: 90vh;">
+    <p class="hero-eyebrow">sty Book</p>
+    <h2 class="hero-title" style="font-size: clamp(40px, 6vw, 72px);">轻薄，<br>超乎想象。</h2>
+    <p class="hero-subtitle">M4 芯片。全天续航。惊艳大屏。</p>
+    <div class="hero-cta">
+      <a href="#">进一步了解</a>
+      <a href="#">购买</a>
+    </div>
+    <div class="hero-visual">
+      <div class="device device--laptop">
+        <div class="screen">
+          <div class="screen-glow"></div>
+        </div>
+        <div class="base"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid cards -->
+  <div class="grid-section">
+    <div class="card card--dark reveal" id="watch">
+      <div class="card-logo">⌚</div>
+      <h3 class="card-title">sty Watch</h3>
+      <p class="card-sub">健康，时时在手。</p>
+      <div class="card-cta">
+        <a href="#">进一步了解</a>
+        <a href="#">购买</a>
+      </div>
+      <div class="card-visual">
+        <div class="device device--watch" style="margin-bottom: -40px;">
+          <div class="face">
+            <div class="face-ring"></div>
+            <span class="face-time">9:41</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--light reveal" id="vision">
+      <div class="card-logo">🥽</div>
+      <h3 class="card-title">sty Vision</h3>
+      <p class="card-sub">空间计算，从此不同。</p>
+      <div class="card-cta">
+        <a href="#">进一步了解</a>
+        <a href="#">购买</a>
+      </div>
+      <div class="card-visual">
+        <div class="card-blob card-blob--purple"></div>
+      </div>
+    </div>
+
+    <div class="card card--light reveal">
+      <div class="card-logo">🎧</div>
+      <h3 class="card-title">sty Pods</h3>
+      <p class="card-sub">主动降噪，沉浸聆听。</p>
+      <div class="card-cta">
+        <a href="#">进一步了解</a>
+        <a href="#">购买</a>
+      </div>
+      <div class="card-visual">
+        <div class="card-blob card-blob--green"></div>
+      </div>
+    </div>
+
+    <div class="card card--dark reveal">
+      <div class="card-logo">💳</div>
+      <h3 class="card-title">sty Card</h3>
+      <p class="card-sub">钛金属。极简设计。</p>
+      <div class="card-cta">
+        <a href="#">进一步了解</a>
+        <a href="#">购买</a>
+      </div>
+      <div class="card-visual">
+        <div class="card-blob card-blob--orange"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone section -->
+  <section class="hero hero--dark reveal" id="phone" style="min-height: 80vh;">
+    <p class="hero-eyebrow">sty Phone</p>
+    <h2 class="hero-title" style="font-size: clamp(40px, 6vw, 72px);">强大，<br>在掌中。</h2>
+    <p class="hero-subtitle">钛金属设计。A18 Pro 芯片。专业级影像系统。</p>
+    <div class="hero-cta">
+      <a href="#">进一步了解</a>
+      <a href="#">购买</a>
+    </div>
+    <div class="hero-visual">
+      <div class="device device--phone" style="width: min(220px, 45vw);">
+        <div class="screen">
+          <div class="screen-glow" style="background: radial-gradient(ellipse at 50% 30%, rgba(255, 80, 80, 0.4) 0%, transparent 60%);"></div>
+          <span class="screen-text" style="font-size: 22px;">Pro</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-note">
+        1. 所示内容为概念展示，非真实产品。<br>
+        2. 页面设计灵感来源于 Apple 官网风格，仅供学习参考。
+      </p>
+      <div class="footer-links">
+        <a href="#">隐私政策</a>
+        <a href="#">使用条款</a>
+        <a href="#">销售政策</a>
+        <a href="#">法律信息</a>
+        <a href="#">网站地图</a>
+      </div>
+      <p class="footer-copy">Copyright © 2026 sty Inc. 保留所有权利。</p>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    reveals.forEach((el) => observer.observe(el));
+  </script>
+
 </body>
 </html>
